@@ -5,13 +5,16 @@
 import sounddevice as sd
 from scipy.io.wavfile import write
 import numpy as np
+import sys
 
 FS = 44100  # SAMPLE RATE
-SECONDS = 20  # DURATION OF RECORDING
+SECONDS = 10  # DURATION OF RECORDING
 MULTIPLIER = 1000
 VOICE = 0.01
 data = []
-
+silence = 0 # global variable to denote silence
+OUTPUT = "main.wav"
+QUIT = 50 # Quit application after 100 loops of nonrecording
 
 # sd.wait()  # Wait until recording is finished
 # write('output.wav', fs, myrecording)  # Save as WAV file
@@ -21,6 +24,8 @@ def getdb(frame):
 
 def callback(indata, outdata, frames, time, status):
     global data
+    global silence
+    global OUTPUT
     if status:
         print(status)
         # Record voice here
@@ -29,39 +34,27 @@ def callback(indata, outdata, frames, time, status):
         print("Recording")
         data.append(indata)
         filedata = np.concatenate(data)
-        write('hello.wav', FS, filedata)
+        write(OUTPUT, FS, filedata)
+        silence = 0
     else:
         print("Stop Recording")
-    # outdata[:] = indata
-    # print(getdb(indata))
-    # return myrecording
+        silence += 1
+    if silence > QUIT:
+        sys.exit(0)
+    return 0
 
-def recordspeech(myrecording):
-    myrecording = sd.rec(int(SECONDS * FS), samplerate=FS, channels=1)
-    sd.wait()  # Wait until recording is finished
-    # Record voice here
-    pass
 
-def writespeech():
-    pass
+def main(filename, time):
+    global OUTPUT
+    global SECONDS
+    if filename:
+        OUTPUT = filename
+    if time:
+        SECONDS = time
 
-def main():
     with sd.Stream(channels=2, callback=callback):
         sd.sleep(int(SECONDS * MULTIPLIER))
 
-    # try:
-    #     detectspeech()
-    # except:
-    #     print("detectspeech")
-    # try:
-    #     recordspeech()
-    # except:
-    #     print("detectspeech")
-    # try:
-    #     writespeech()
-    # except:
-    #     print("writespeech")
-    #     writespeech()
-    # return 0
+    return 0
 
-main()
+# main()

@@ -1,16 +1,31 @@
 # Sound
 
+A tool to detect and save user voice recording
+
+## Features
 1.  Filter by volume
 2.  Add some time delay after user finishes speaking
 
-State 1: Wait for speech
-
-State 2: Record speech
-
-State 3: Write the audio file
-
+## Files 
 1.  `main.py` - User runs this file
-2.  `sound.py`
-    1.  `func detectspeech` - wait for speech (detect decibels louder than x db)
-    2.  `func recordspeech` - record speech
-    3.  `func writespeech` - writes the speech
+2.  `sound.py` - Main sound functionality
+3. `demo[x].py` - Some toy examples of how to use the sounddevice python module
+
+# Getting started
+
+```
+git clone https://github.com/Zhu-Justin/Sound.git /path/to/repo
+
+cd /path/to/repo
+pip3 install -r ./requirements.txt
+
+./main.py -o "filename.wav"
+```
+
+You should see "Recording" when you are talking and then "Not Recording" when you are not talking. If you have not been talking for a long time, the program exits. The total time of the program runs is 10 seconds by default.
+
+# Getting help
+```
+./main.py  -h
+```
+
