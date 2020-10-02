@@ -29,3 +29,12 @@ You should see "Recording" when you are talking and then "Not Recording" when yo
 ./main.py  -h
 ```
 
+# Notes
+
+Depending on your machine, you might be getting a feedback loop.
+
+Furthermore, after the program from not
+detecting any human voice, you might need to
+press Ctrl-C to fully exit the program.
+
+
