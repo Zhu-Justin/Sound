@@ -14,5 +14,5 @@ argparser.add_argument("-t", "--time", help="maximum time you want program to ru
 
 args = argparser.parse_args()
 
-sound.main(args.output, time)
+sound.main(args.output, args.time)
 
