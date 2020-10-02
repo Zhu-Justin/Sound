@@ -19,20 +19,25 @@ data = []
 def getdb(frame):
     return np.sqrt(np.power(frame, 2).mean())
 
-def detectspeech(indata, outdata, frames, time, status):
+def callback(indata, outdata, frames, time, status):
     global data
     if status:
         print(status)
         # Record voice here
-        if getdb(indata) > VOICE:
-            data.append(indata)
+    if getdb(indata) > VOICE:
+    # if True:
+        print("Recording")
+        data.append(indata)
+        filedata = np.concatenate(data)
+        write('hello.wav', FS, filedata)
+    else:
+        print("Stop Recording")
     # outdata[:] = indata
     # print(getdb(indata))
-    return 0
     # return myrecording
 
 def recordspeech(myrecording):
-    myrecording = sd.rec(int(SECONDS * FS), samplerate=fs, channels=2)
+    myrecording = sd.rec(int(SECONDS * FS), samplerate=FS, channels=1)
     sd.wait()  # Wait until recording is finished
     # Record voice here
     pass
@@ -41,9 +46,9 @@ def writespeech():
     pass
 
 def main():
-    with sd.Stream(channels=1,
-                   callback=detectspeech):
+    with sd.Stream(channels=2, callback=callback):
         sd.sleep(int(SECONDS * MULTIPLIER))
+
     # try:
     #     detectspeech()
     # except:
@@ -57,6 +62,6 @@ def main():
     # except:
     #     print("writespeech")
     #     writespeech()
-    return 0
+    # return 0
 
 main()
