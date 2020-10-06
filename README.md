@@ -1,6 +1,6 @@
 # Sound
 
-A tool to detect and save user voice recording
+A tool to detect and save human voice recordings.
 
 ## Features
 1.  Filter by volume
@@ -22,7 +22,7 @@ pip3 install -r ./requirements.txt
 ./main.py -o "filename.wav"
 ```
 
-You should see "Recording" when you are talking and then "Not Recording" when you are not talking. If you have not been talking for a long time, the program exits. The total time of the program runs is 10 seconds by default.
+You should see "Recording" when you are talking and then "Not Recording" when you are not talking. If you have not been talking for a long time, the program exits. The maximum time in which the program will run is 10 seconds by default.
 
 # Getting help
 ```
@@ -33,8 +33,7 @@ You should see "Recording" when you are talking and then "Not Recording" when yo
 
 Depending on your machine, you might be getting a feedback loop.
 
-Furthermore, after the program from not
-detecting any human voice, you might need to
-press Ctrl-C to fully exit the program.
+After the program exits as a result of not detecting your voice, you might need
+to press Ctrl-C to fully exit the program.
 
 
